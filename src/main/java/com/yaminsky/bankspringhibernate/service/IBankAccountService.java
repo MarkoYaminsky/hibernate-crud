@@ -1,15 +1,12 @@
 package com.yaminsky.bankspringhibernate.service;
 
 import com.yaminsky.bankspringhibernate.domain.BankAccountEntity;
-import com.yaminsky.bankspringhibernate.domain.BankEntity;
-import com.yaminsky.bankspringhibernate.domain.ClientEntity;
+import com.yaminsky.bankspringhibernate.dto.BankAccountDto;
+import org.springframework.hateoas.CollectionModel;
 
-import javax.transaction.Transactional;
-import java.util.List;
+public interface IBankAccountService extends IGeneralService<BankAccountDto, Integer> {
+    CollectionModel<BankAccountDto> getBankAccountEntitiesByBankByBankId(Integer id);
 
-public interface IBankAccountService extends IGeneralService<BankAccountEntity, Integer> {
-    List<BankAccountEntity> getBankAccountEntitiesByBankByBankId(BankEntity bankByBankId);
-
-    List<BankAccountEntity> getBankAccountEntitiesByClientByClientId(ClientEntity clientByClientId);
+    CollectionModel<BankAccountDto> getBankAccountEntitiesByClientByClientId(Integer id);
 
 }

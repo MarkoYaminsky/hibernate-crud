@@ -26,8 +26,4 @@ public class BankAccountEntity {
     @ManyToOne
     @JoinColumn(name = "bank_id", referencedColumnName = "id", nullable = false)
     private BankEntity bankByBankId;
-    @OneToMany(mappedBy = "bankAccountByBankAccountSellerId")
-    private List<TransactionEntity> transactionsBySellerId;
-    @OneToMany(mappedBy = "bankAccountByBankAccountBuyerId")
-    private List<TransactionEntity> transactionsByBuyerId;
 }

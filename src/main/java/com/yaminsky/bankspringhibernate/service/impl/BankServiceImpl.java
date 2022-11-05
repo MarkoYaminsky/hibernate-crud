@@ -2,10 +2,15 @@ package com.yaminsky.bankspringhibernate.service.impl;
 
 import com.yaminsky.bankspringhibernate.domain.BankEntity;
 import com.yaminsky.bankspringhibernate.domain.CountryEntity;
+import com.yaminsky.bankspringhibernate.dto.BankDto;
+import com.yaminsky.bankspringhibernate.dto.assembler.BankDtoAssembler;
 import com.yaminsky.bankspringhibernate.exception.BankNotFoundException;
+import com.yaminsky.bankspringhibernate.exception.CountryNotFoundException;
 import com.yaminsky.bankspringhibernate.repository.IBankRepository;
+import com.yaminsky.bankspringhibernate.repository.ICountryRepository;
 import com.yaminsky.bankspringhibernate.service.IBankService;
 import lombok.AllArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,32 +20,39 @@ import java.util.List;
 @AllArgsConstructor
 public class BankServiceImpl implements IBankService {
     private IBankRepository bankRepository;
+    private ICountryRepository countryRepository;
+    private BankDtoAssembler bankDtoAssembler;
 
     @Override
-    public List<BankEntity> findAll() {
-        return bankRepository.findAll();
+    public CollectionModel<BankDto> findAll() {
+        List<BankEntity> banks = bankRepository.findAll();
+        return bankDtoAssembler.toCollectionModel(banks);
     }
 
     @Override
-    public BankEntity findById(Integer id) {
-        return bankRepository.findById(id)
+    public BankDto findById(Integer id) {
+        BankEntity bank = bankRepository.findById(id)
                 .orElseThrow(() -> new BankNotFoundException("Bank with id " + id + " not found"));
+        return bankDtoAssembler.toModel(bank);
     }
 
     @Override
     @Transactional
-    public BankEntity create(BankEntity bank) {
-        bankRepository.save(bank);
+    public BankDto create(BankDto bank) {
+        BankEntity bankEntity = new BankEntity();
+        CountryEntity country = countryRepository.findById(bank.getCountryId()).orElseThrow(() -> new CountryNotFoundException("Country not found"));
+        bankEntity.setCountryByCountryId(country);
+        bankEntity.setName(bank.getName());
         return bank;
     }
 
     @Override
     @Transactional
-    public void update(Integer id, BankEntity newBank) {
+    public void update(Integer id, BankDto newBank) {
         BankEntity bank = bankRepository.findById(id)
                 .orElseThrow(() -> new BankNotFoundException("Bank with id" + id + " not found"));
         bank.setName(newBank.getName());
-        bank.setCountryByCountryId(newBank.getCountryByCountryId());
+        bank.setCountryByCountryId(countryRepository.findById(newBank.getCountryId()).orElseThrow(() -> new CountryNotFoundException("Country not found")));
         bankRepository.save(bank);
     }
 
@@ -52,8 +64,10 @@ public class BankServiceImpl implements IBankService {
     }
 
     @Override
-    public List<BankEntity> getBankEntitiesByCountryByCountryId(CountryEntity countryByCountryId) {
-        return bankRepository.getBankEntitiesByCountryByCountryId(countryByCountryId);
+    public CollectionModel<BankDto> getBankEntitiesByCountryByCountryId(Integer id) {
+        CountryEntity country = countryRepository.findById(id).orElseThrow(() -> new CountryNotFoundException("Country not found"));
+        List<BankEntity> banks = bankRepository.getBankEntitiesByCountryByCountryId(country);
+        return bankDtoAssembler.toCollectionModel(banks);
     }
 }
 

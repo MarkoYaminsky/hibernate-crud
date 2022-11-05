@@ -15,13 +15,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CountryDtoAssembler implements RepresentationModelAssembler<CountryEntity, CountryDto> {
     @Override
     public CountryDto toModel(CountryEntity clientEntity) {
-        CountryDto countryDto = CountryDto.builder()
+        return CountryDto.builder()
                 .id(clientEntity.getId())
                 .name(clientEntity.getName())
                 .build();
-        Link selfLink = linkTo(methodOn(CountryController.class).getCountry(countryDto.getId())).withSelfRel();
-        countryDto.add(selfLink);
-        return countryDto;
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.yaminsky.bankspringhibernate.service;
 
-import com.yaminsky.bankspringhibernate.domain.BankEntity;
-import com.yaminsky.bankspringhibernate.domain.CountryEntity;
+import com.yaminsky.bankspringhibernate.dto.BankDto;
+import org.springframework.hateoas.CollectionModel;
 
-import java.util.List;
-
-public interface IBankService extends IGeneralService<BankEntity, Integer> {
-    List<BankEntity> getBankEntitiesByCountryByCountryId(CountryEntity countryByCountryId);
+public interface IBankService extends IGeneralService<BankDto, Integer> {
+    CollectionModel<BankDto> getBankEntitiesByCountryByCountryId(Integer id);
 }

@@ -1,6 +1,6 @@
 package com.yaminsky.bankspringhibernate.service;
 
-import com.yaminsky.bankspringhibernate.domain.CountryEntity;
+import com.yaminsky.bankspringhibernate.dto.CountryDto;
 
-public interface ICountryService extends IGeneralService<CountryEntity, Integer> {
+public interface ICountryService extends IGeneralService<CountryDto, Integer> {
 }

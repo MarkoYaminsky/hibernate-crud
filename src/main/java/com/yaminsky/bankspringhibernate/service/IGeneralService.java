@@ -1,9 +1,10 @@
 package com.yaminsky.bankspringhibernate.service;
 
-import java.util.List;
+import com.yaminsky.bankspringhibernate.dto.CountryDto;
+import org.springframework.hateoas.CollectionModel;
 
 public interface IGeneralService<T, ID> {
-    List<T> findAll();
+    CollectionModel<T> findAll();
 
     T findById(ID id);
 
