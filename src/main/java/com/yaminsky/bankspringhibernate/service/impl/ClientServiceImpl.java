@@ -3,7 +3,6 @@ package com.yaminsky.bankspringhibernate.service.impl;
 import com.yaminsky.bankspringhibernate.domain.ClientEntity;
 import com.yaminsky.bankspringhibernate.domain.CountryEntity;
 import com.yaminsky.bankspringhibernate.dto.ClientDto;
-import com.yaminsky.bankspringhibernate.dto.CountryDto;
 import com.yaminsky.bankspringhibernate.dto.assembler.ClientDtoAssembler;
 import com.yaminsky.bankspringhibernate.exception.ClientNotFoundException;
 import com.yaminsky.bankspringhibernate.exception.CountryNotFoundException;
@@ -72,5 +71,11 @@ public class ClientServiceImpl implements IClientService {
         CountryEntity country = countryRepository.findById(id).orElseThrow(() -> new CountryNotFoundException("Country not found"));
         List<ClientEntity> clientEntities = clientRepository.getClientEntitiesByCountryByCountryId(country);
         return clientDtoAssembler.toCollectionModel(clientEntities);
+    }
+
+    @Override
+    public String insertTenRecordsIntoClient() {
+        clientRepository.insertTenRecordsIntoClient();
+        return "Vitalik Dupa was inserted 10 times";
     }
 }

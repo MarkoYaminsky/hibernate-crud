@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping(value = "/api/bankAccounts")
@@ -42,5 +44,11 @@ public class BankAccountController {
     public ResponseEntity<?> deleteBankAccount(@PathVariable Integer bankAccountId) {
         bankAccountService.delete(bankAccountId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/maximum")
+    public ResponseEntity<?> getMaximumBalance() {
+        BigDecimal result = bankAccountService.getBankAccountMaximumBalance();
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

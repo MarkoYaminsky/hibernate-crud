@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -17,6 +16,9 @@ public class CountryEntity {
     @Basic
     @Column(name = "name")
     private String name;
+    @Basic
+    @Column(name = "continent_id")
+    private Integer continentId;
     @OneToMany(mappedBy = "countryByCountryId")
     private List<BankEntity> banksById;
     @OneToMany(mappedBy = "countryByCountryId")

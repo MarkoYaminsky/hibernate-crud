@@ -1,6 +1,5 @@
 package com.yaminsky.bankspringhibernate.service;
 
-import com.yaminsky.bankspringhibernate.dto.CountryDto;
 import org.springframework.hateoas.CollectionModel;
 
 public interface IGeneralService<T, ID> {

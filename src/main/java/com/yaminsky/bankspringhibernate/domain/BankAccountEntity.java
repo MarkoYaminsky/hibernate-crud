@@ -3,8 +3,7 @@ package com.yaminsky.bankspringhibernate.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -20,6 +19,11 @@ public class BankAccountEntity {
     @Basic
     @Column(name = "person_type")
     private String personType;
+
+    @Basic
+    @Column(name = "balance")
+    private BigDecimal balance;
+
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private ClientEntity clientByClientId;

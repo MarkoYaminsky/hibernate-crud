@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import java.math.BigDecimal;
+
 @Builder
 @Getter
 @EqualsAndHashCode(callSuper = false)
@@ -16,6 +18,7 @@ public class BankAccountDto extends RepresentationModel<BankAccountDto> {
     private final Integer id;
     private final String requisites;
     private final String personType;
+    private final BigDecimal balance;
     private final Integer bankId;
     private final Integer clientId;
 }

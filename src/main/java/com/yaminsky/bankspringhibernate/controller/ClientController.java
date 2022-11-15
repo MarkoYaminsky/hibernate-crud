@@ -43,4 +43,10 @@ public class ClientController {
         clientService.delete(clientId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(value = "/insert")
+    public ResponseEntity<?> insertRecords() {
+        String message = clientService.insertTenRecordsIntoClient();
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
+    }
 }

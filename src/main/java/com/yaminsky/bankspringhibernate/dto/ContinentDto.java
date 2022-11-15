@@ -11,9 +11,8 @@ import org.springframework.hateoas.server.core.Relation;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "country", collectionRelation = "countries")
-public class CountryDto extends RepresentationModel<CountryDto> {
+@Relation(itemRelation = "continent", collectionRelation = "continents")
+public class ContinentDto extends RepresentationModel<ContinentDto> {
     private final Integer id;
     private final String name;
-    private final Integer continentId;
 }

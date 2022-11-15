@@ -14,6 +14,7 @@ public class BankAccountDtoAssembler implements RepresentationModelAssembler<Ban
                 .id(bankAccountEntity.getId())
                 .requisites(bankAccountEntity.getRequisites())
                 .personType(bankAccountEntity.getPersonType())
+                .balance(bankAccountEntity.getBalance())
                 .clientId(bankAccountEntity.getClientByClientId().getId())
                 .bankId(bankAccountEntity.getBankByBankId().getId())
                 .build();

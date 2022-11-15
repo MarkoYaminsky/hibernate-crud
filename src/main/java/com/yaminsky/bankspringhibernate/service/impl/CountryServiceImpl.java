@@ -37,6 +37,7 @@ public class CountryServiceImpl implements ICountryService {
     public CountryDto create(CountryDto country) {
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setName(country.getName());
+        countryEntity.setContinentId(country.getContinentId());
         countryRepository.save(countryEntity);
         return country;
     }
@@ -47,6 +48,7 @@ public class CountryServiceImpl implements ICountryService {
         CountryEntity country = countryRepository.findById(id)
                 .orElseThrow(() -> new CountryNotFoundException("Country with id" + id + " not found"));
         country.setName(newCountry.getName());
+        country.setContinentId(country.getContinentId());
         countryRepository.save(country);
     }
 

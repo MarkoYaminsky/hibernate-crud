@@ -17,6 +17,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -42,6 +43,11 @@ public class BankAccountServiceImpl implements IBankAccountService {
     }
 
     @Override
+    public BigDecimal getBankAccountMaximumBalance() {
+        return bankAccountRepository.getBankAccountMaximumBalance();
+    }
+
+    @Override
     public CollectionModel<BankAccountDto> findAll() {
         List<BankAccountEntity> bankAccounts = bankAccountRepository.findAll();
         return bankAccountDtoAssembler.toCollectionModel(bankAccounts);
@@ -64,6 +70,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
         bankAccountEntity.setClientByClientId(client);
         bankAccountEntity.setRequisites(bankAccount.getRequisites());
         bankAccountEntity.setPersonType(bankAccount.getPersonType());
+        bankAccountEntity.setBalance(bankAccount.getBalance());
         bankAccountRepository.save(bankAccountEntity);
         return bankAccount;
     }

@@ -14,10 +14,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Component
 public class CountryDtoAssembler implements RepresentationModelAssembler<CountryEntity, CountryDto> {
     @Override
-    public CountryDto toModel(CountryEntity clientEntity) {
+    public CountryDto toModel(CountryEntity countryEntity) {
         return CountryDto.builder()
-                .id(clientEntity.getId())
-                .name(clientEntity.getName())
+                .id(countryEntity.getId())
+                .name(countryEntity.getName())
+                .continentId(countryEntity.getContinentId())
                 .build();
     }
 
